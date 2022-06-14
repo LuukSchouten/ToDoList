@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
     $query = "INSERT INTO tasks (name, description, deadline) VALUES ('$name', '$description', '$deadline')";
     $conn->exec($query);
 
-    //prevent multiple injections on refresh by going back to index
+    // prevent multiple injections on refresh by going back to index
     header("Location: index.php");
 
 }

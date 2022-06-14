@@ -1,3 +1,9 @@
+<?php 
+
+include 'connection.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +27,6 @@
     <?php include 'read.php'; ?>
 
 </div>
-    
+
 </body>
 </html>
