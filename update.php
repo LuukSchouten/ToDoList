@@ -15,12 +15,11 @@ $row = $select->fetch();
 // On submit update data
 if(isset($_POST['submit'])) {
 
-    $name = $_POST['name'];
     $description = $_POST['description'];
     $deadline = $_POST['deadline'];
 
     // Update query
-    $query = "UPDATE tasks SET name = '$name', description = '$description', deadline = '$deadline' WHERE id = $id";
+    $query = "UPDATE tasks SET description = '$description', deadline = '$deadline' WHERE id = $id";
 
     // Prepare statement to prevent sql injection
     $stmt = $conn->prepare($query);
@@ -36,7 +35,6 @@ if(isset($_POST['submit'])) {
 ?>
 
 <form method='post'>
-    <input type='text' name='name' value='<?php echo $row['name']; ?>'><br>
     <input type='text' name='description' value='<?php echo $row['description']; ?>'><br>
     <input type='date' name='deadline' value='<?php echo $row['deadline']; ?>'><br>
     <input type='submit' name='submit' value='Updaten'><br>

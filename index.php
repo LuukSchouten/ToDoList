@@ -17,12 +17,19 @@ include 'connection.php';
 
 <div class='main'>
 
-    <form method='post' action='create.php'>
-        <input type='text' placeholder='Naam' name='name'><br>
+    <h2>Lijst toevoegen</h2>
+    <form method='post' action='createList.php'>
         <input type='text' placeholder='Taakomschrijving' name='description'><br>
         <input type='date' name='deadline'><br>
         <input type='submit' name='submit' value='Toevoegen'><br>
     </form><br>
+
+    <!-- <h2>Lijst toevoegen</h2>
+    <form method='post' action='create.php'>
+        <input type='text' placeholder='Taakomschrijving' name='description'><br>
+        <input type='date' name='deadline'><br>
+        <input type='submit' name='submit' value='Toevoegen'><br>
+    </form> -->
 
     <?php include 'read.php'; ?>
 
