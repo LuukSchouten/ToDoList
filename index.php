@@ -2,6 +2,8 @@
 
 include 'connection.php';
 
+$select = $conn->query("SELECT * FROM tasks");
+
 ?>
 
 <!DOCTYPE html>
@@ -19,17 +21,29 @@ include 'connection.php';
 
     <h2>Lijst toevoegen</h2>
     <form method='post' action='createList.php'>
-        <input type='text' placeholder='Taakomschrijving' name='description'><br>
-        <input type='date' name='deadline'><br>
+        <input type='text' placeholder='Lijst naam' name='description' required><br>
+        <input type='date' name='deadline' required><br>
+        <select name='status'>
+            <br>
+            <option value='ToDo'> ToDo </option>
+            <option value='Finished'> Finished </option>
+        </select>
+        <br>
         <input type='submit' name='submit' value='Toevoegen'><br>
-    </form><br>
+    </form>
+    <br>
 
-    <!-- <h2>Lijst toevoegen</h2>
-    <form method='post' action='create.php'>
-        <input type='text' placeholder='Taakomschrijving' name='description'><br>
-        <input type='date' name='deadline'><br>
-        <input type='submit' name='submit' value='Toevoegen'><br>
-    </form> -->
+    <h2>Taak toevoegen</h2>
+    <form method='post' action='createTask.php'>
+
+        <select name='task_id'>
+            <?php while($task = $select->fetch()){?>
+                <option value="<?php echo $task['id']; ?>"><?php echo $task['description'];?></option>
+            <?php }?>
+        </select><br>
+        <input type='text' name='name' placeholder='Taakomschrijving' required><br>
+        <br>
+        <input type='submit' name='submit' value='Toevoegen'><br><br>
 
     <?php include 'read.php'; ?>
 
