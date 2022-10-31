@@ -33,18 +33,7 @@ $select = $conn->query("SELECT * FROM tasks");
     </form>
     <br>
 
-    <h2>Taak toevoegen</h2>
-    <form method='post' action='createTask.php'>
-
-        <select name='task_id'>
-            <?php while($task = $select->fetch()){?>
-                <option value="<?php echo $task['id']; ?>"><?php echo $task['description'];?></option>
-            <?php }?>
-        </select><br>
-        <input type='text' name='name' placeholder='Taakomschrijving' required><br>
-        <br>
-        <input type='submit' name='submit' value='Toevoegen'><br><br>
-
+    
     <?php include 'read.php'; ?>
 
 </div>
