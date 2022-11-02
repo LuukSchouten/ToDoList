@@ -17,10 +17,6 @@ if(isset($_GET['sortRow'])) {
 // Get all rows from task table
 $tasks_query = $conn->query("SELECT * FROM tasks ORDER BY $order $sortRow");
 
-function getAllTasksById($task_id) {
-    return $conn->query("SELECT * FROM task_part WHERE task_id = " . $task_id);
-}
-
 //when order is ASC change it do DESC and vice versa
 $sortRow == 'DESC' ? $sortRow = 'ASC' : $sortRow = 'DESC';
 

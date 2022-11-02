@@ -32,7 +32,6 @@ $select = $conn->query("SELECT * FROM tasks");
         <input type='submit' name='submit' value='Toevoegen'><br>
     </form>
     <br>
-
     
     <?php include 'read.php'; ?>
 

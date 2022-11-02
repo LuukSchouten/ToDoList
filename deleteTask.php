@@ -17,6 +17,6 @@ $stmt = $conn->prepare($query);
 $stmt->execute();
 
 // Back to index to prevent multiple injections
-header("location: index.php");
+header('Location: ' . $_SERVER['HTTP_REFERER']);
 
 ?>

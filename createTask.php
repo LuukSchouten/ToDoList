@@ -2,15 +2,19 @@
 
 include 'connection.php';
 
+//put url id in variable
+if(isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+
 if(isset($_POST['submit'])){
 
-    $task_id = $_POST['task_id'];
     $name = $_POST['name'];
+    $duration = $_POST['duration'];
+    $status = $_POST['status'];
 
-    $query = "INSERT INTO task_part (task_id, name) VALUES ('$task_id', '$name')";
+    $query = "INSERT INTO task_part (task_id, name, duration, status) VALUES ('$id', '$name', '$duration', '$status')";
     $conn->exec($query);
 
-    // prevent multiple injections on refresh by going back to index
-    header("Location: index.php");
-
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
