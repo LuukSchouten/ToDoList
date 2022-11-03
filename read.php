@@ -7,19 +7,19 @@ if(isset($_GET['order'])) {
     $order = 'deadline';
 }
 
+echo $order;
+
 if(isset($_GET['sortRow'])) {
     $sortRow = $_GET['sortRow'];
 }else{
     $sortRow = 'ASC';
 }
 
-
 // Get all rows from task table
 $tasks_query = $conn->query("SELECT * FROM tasks ORDER BY $order $sortRow");
 
 //when order is ASC change it do DESC and vice versa
 $sortRow == 'DESC' ? $sortRow = 'ASC' : $sortRow = 'DESC';
-
 ?>
 
 
@@ -28,8 +28,8 @@ $sortRow == 'DESC' ? $sortRow = 'ASC' : $sortRow = 'DESC';
 
     <tr>
         <th>Lijst</th>
-        <th><a href='?=order=deadline&&sortRow=<?php echo $sortRow?>'>Deadline</a></th>
-        <th><a href='?=order=status&&sortRow=<?php echo $sortRow?>'>Status</a></th>
+        <th><a href='?order=deadline&&sortRow=<?php echo $sortRow?>'>Deadline</a></th>
+        <th><a href='?order=status&&sortRow=<?php echo $sortRow?>'>Status</a></th>
         <th>Update</th>
         <th>Verwijderen</th>
     </tr>

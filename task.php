@@ -65,7 +65,7 @@ $sortRow == 'DESC' ? $sortRow = 'ASC' : $sortRow = 'DESC';
     <tr>
         <th>Taak</th>
         <th><a href='?id=<?php echo $id?>&&order=duration&&sortRow=<?php echo $sortRow?>'>Duration</a></th>
-        <th><a href='?id=<?php echo $id?>&&=order=status&&sortRow=<?php echo $sortRow?>'>Status</a></th>
+        <th><a href='?id=<?php echo $id?>&&order=status&&sortRow=<?php echo $sortRow?>'>Status</a></th>
         <th>Update</th>
         <th>Verwijderen</th>
     </tr>
