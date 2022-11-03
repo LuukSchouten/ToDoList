@@ -7,8 +7,6 @@ if(isset($_GET['order'])) {
     $order = 'deadline';
 }
 
-echo $order;
-
 if(isset($_GET['sortRow'])) {
     $sortRow = $_GET['sortRow'];
 }else{
