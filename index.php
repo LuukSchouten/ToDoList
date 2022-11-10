@@ -19,6 +19,8 @@ $select = $conn->query("SELECT * FROM tasks");
 
 <div class='main'>
 
+    
+
     <h2>Lijst toevoegen</h2>
     <form method='post' action='createList.php'>
         <input type='text' placeholder='Lijst naam' name='description' required><br>

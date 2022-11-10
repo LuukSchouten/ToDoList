@@ -1,33 +1,47 @@
 <?php 
 
 //get status from url
-if(isset($_GET['order'])) {
-    $order = $_GET['order'];
+if(isset($_GET['status'])) {
+    $status = $_GET['status'];
 }else{
-    $order = 'deadline';
+    $status = 'todo';
 }
 
-if(isset($_GET['sortRow'])) {
-    $sortRow = $_GET['sortRow'];
+if(isset($_GET['deadline'])) {
+    $deadline = $_GET['deadline'];
 }else{
-    $sortRow = 'ASC';
+    $deadline = '99991231';
 }
 
 // Get all rows from task table
-$tasks_query = $conn->query("SELECT * FROM tasks ORDER BY $order $sortRow");
-
-//when order is ASC change it do DESC and vice versa
-$sortRow == 'DESC' ? $sortRow = 'ASC' : $sortRow = 'DESC';
+$tasks_query = $conn->query("SELECT * from tasks where status = '$status' && deadline <= '$deadline';");
 ?>
 
+<h2> filters </h2>
+<form method='get'>
+    status:
+    <select name='status' style='margin-right: 1em;'>
+        <br>
+        <option value='ToDo'> ToDo </option>
+        <option value='Finished'> Finished </option>
+    </select>
+
+    deadline:
+    <input type='date' name='deadline' required style='margin-right: 1em;'>
+
+    <input type='submit' value='filteren'><br>
+
+</form>
+
+<br>
 
 
 <table>
 
     <tr>
         <th>Lijst</th>
-        <th><a href='?order=deadline&&sortRow=<?php echo $sortRow?>'>Deadline</a></th>
-        <th><a href='?order=status&&sortRow=<?php echo $sortRow?>'>Status</a></th>
+        <th>Deadline</th>
+        <th>Status</a></th>
         <th>Update</th>
         <th>Verwijderen</th>
     </tr>

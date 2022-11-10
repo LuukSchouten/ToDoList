@@ -1,12 +1,11 @@
-<div class='main'>
-<link rel="stylesheet" type=text/css href="css/index.css">
-
 <?php 
-    //put url id in variable
     if(isset($_GET['id'])) {
         $id = $_GET['id'];
     }
 ?>
+
+<div class='main'>
+<link rel="stylesheet" type=text/css href="css/index.css">
 
     <h2>Taak toevoegen</h2>
     <form method='post' action='createTask.php?id=<?php echo $id?>'>
@@ -21,6 +20,23 @@
         <input type='submit' name='submit' value='Toevoegen'><br>
     </form>
     <br>
+
+    <h2> filters </h2>
+    <form method='get'>
+        <input hidden name='id' value='<?=$id?>'>
+        status:
+        <select name='status' style='margin-right: 1em;'>
+            <br>
+            <option value='ToDo'> ToDo </option>
+            <option value='Finished'> Finished </option>
+        </select>
+
+        duration:
+        <input type='time' name='duration' step='1' required style='margin-right: 1em;'>
+
+        <input type='submit' value='filteren'><br>
+
+    </form>
 
 
 
@@ -38,34 +54,35 @@ echo '<h2>Taken van ' . $list['description'] , ':</h2>'
 
 <?php 
 
+if(isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+
 //get status from url
-if(isset($_GET['order'])) {
-    $order = $_GET['order'];
+if(isset($_GET['status'])) {
+    $status = $_GET['status'];
 }else{
-    $order = 'duration';
+    $status = 'todo';
 }
 
-if(isset($_GET['sortRow'])) {
-    $sortRow = $_GET['sortRow'];
+if(isset($_GET['duration'])) {
+    $duration = $_GET['duration'];
 }else{
-    $sortRow = 'ASC';
+    $duration = '23:59:59.9999999';
 }
 
+$url = 'http://localhost:8080/task.php';
 
 // Get all rows from task table
-$tasks = $conn->query("SELECT * FROM task_part WHERE task_id = $id ORDER BY $order $sortRow");
-
-//when order is ASC change it do DESC and vice versa
-$sortRow == 'DESC' ? $sortRow = 'ASC' : $sortRow = 'DESC';
-
+$tasks = $conn->query("SELECT * from task_part where task_id = '$id' && status = '$status' && duration <= '$duration'");
 ?>
 
 <table>
 
     <tr>
         <th>Taak</th>
-        <th><a href='?id=<?php echo $id?>&&order=duration&&sortRow=<?php echo $sortRow?>'>Duration</a></th>
-        <th><a href='?id=<?php echo $id?>&&order=status&&sortRow=<?php echo $sortRow?>'>Status</a></th>
+        <th>Duration</a></th>
+        <th>Status</a></th>
         <th>Update</th>
         <th>Verwijderen</th>
     </tr>
