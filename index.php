@@ -1,8 +1,10 @@
 <?php 
 
-include 'connection.php';
+error_reporting(E_ALL);
 
-$select = $conn->query("SELECT * FROM tasks");
+include 'listMethods.php';
+
+$task = readList();
 
 ?>
 
@@ -35,7 +37,60 @@ $select = $conn->query("SELECT * FROM tasks");
     </form>
     <br>
     
-    <?php include 'read.php'; ?>
+    <h2> filters </h2>
+    <form method='get'>
+        status:
+        <select name='status' style='margin-right: 1em;'>
+            <br>
+            <option value='ToDo'> ToDo </option>
+            <option value='Finished'> Finished </option>
+        </select>
+
+        deadline:
+        <input type='date' name='deadline' required style='margin-right: 1em;'>
+
+        <input type='submit' value='filteren'><br>
+
+    </form>
+
+    <br>
+
+    <table>
+
+        <tr>
+            <th>Lijst</th>
+            <th>Deadline</th>
+            <th>Status</a></th>
+            <th>Update</th>
+            <th>Verwijderen</th>
+        </tr>
+
+        <!-- Loop through all rows from tasks table -->
+        <?php
+
+            while ($test = $task->fetch()){ 
+
+                //convert to european date format
+                $date = strtotime($test['deadline']);
+
+                $EuroDate = date('d-m-Y', $date);
+                ?>
+
+                <!-- Create a new table row for each row in the tasks table and insert data -->
+
+                <tr>
+                    <td><a href="task.php?id=<?php echo $test['id']; ?>"><?php echo $test['description']; ?></a></td>
+                    <td><?php echo $EuroDate; ?></td>
+                    <td> <?php echo $test['status'];?> </td>
+                    <td><a href="updateList.php?id=<?php echo $test['id']; ?>">Update</a></td>
+                    <td><a href="deleteList.php?id=<?php echo $test['id']; ?>">Verwijderen</a></td>
+                </tr>
+                
+                <!-- fetch the tasks of the list with a php fetch using the list_id. -->
+            
+            <?php } ?>
+
+    </table>    
 
 </div>
 

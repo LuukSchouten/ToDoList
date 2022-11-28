@@ -1,7 +1,6 @@
 <?php 
-    if(isset($_GET['id'])) {
-        $id = $_GET['id'];
-    }
+    include 'taskMethods.php';
+
 ?>
 
 <div class='main'>
@@ -50,31 +49,6 @@ $list = $conn->query("SELECT * FROM tasks WHERE id = $id");
 $list = $list->fetch();
 
 echo '<h2>Taken van ' . $list['description'] , ':</h2>'
-?>
-
-<?php 
-
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
-}
-
-//get status from url
-if(isset($_GET['status'])) {
-    $status = $_GET['status'];
-}else{
-    $status = 'todo';
-}
-
-if(isset($_GET['duration'])) {
-    $duration = $_GET['duration'];
-}else{
-    $duration = '23:59:59.9999999';
-}
-
-$url = 'http://localhost:8080/task.php';
-
-// Get all rows from task table
-$tasks = $conn->query("SELECT * from task_part where task_id = '$id' && status = '$status' && duration <= '$duration'");
 ?>
 
 <table>
