@@ -1,10 +1,8 @@
 <?php 
 
-error_reporting(E_ALL);
-
 include 'listMethods.php';
 
-$task = readList();
+$list = readList();
 
 ?>
 
@@ -68,10 +66,10 @@ $task = readList();
         <!-- Loop through all rows from tasks table -->
         <?php
 
-            while ($test = $task->fetch()){ 
+            while ($row = $list->fetch()){ 
 
                 //convert to european date format
-                $date = strtotime($test['deadline']);
+                $date = strtotime($row['deadline']);
 
                 $EuroDate = date('d-m-Y', $date);
                 ?>
@@ -79,16 +77,16 @@ $task = readList();
                 <!-- Create a new table row for each row in the tasks table and insert data -->
 
                 <tr>
-                    <td><a href="task.php?id=<?php echo $test['id']; ?>"><?php echo $test['description']; ?></a></td>
+                    <td><a href="task.php?id=<?php echo $row['id']; ?>"><?php echo $row['description']; ?></a></td>
                     <td><?php echo $EuroDate; ?></td>
-                    <td> <?php echo $test['status'];?> </td>
-                    <td><a href="updateList.php?id=<?php echo $test['id']; ?>">Update</a></td>
-                    <td><a href="deleteList.php?id=<?php echo $test['id']; ?>">Verwijderen</a></td>
+                    <td> <?php echo $row['status'];?> </td>
+                    <td><a href="updateList.php?id=<?php echo $row['id']; ?>">Update</a></td>
+                    <td><a href="deleteList.php?id=<?php echo $row['id']; ?>">Verwijderen</a></td>
                 </tr>
                 
                 <!-- fetch the tasks of the list with a php fetch using the list_id. -->
             
-            <?php } ?>
+        <?php } ?>
 
     </table>    
 

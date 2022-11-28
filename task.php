@@ -1,5 +1,8 @@
 <?php 
-    include 'taskMethods.php';
+
+include 'taskMethods.php';
+
+$tasks = readTask();
 
 ?>
 
@@ -41,14 +44,13 @@
 
 <?php
 
-include 'connection.php';
-
 // Get all data where id matches url id
 $list = $conn->query("SELECT * FROM tasks WHERE id = $id");
 
 $list = $list->fetch();
 
-echo '<h2>Taken van ' . $list['description'] , ':</h2>'
+echo '<h2>Taken van ' . $list['description'] , ':</h2>';
+
 ?>
 
 <table>

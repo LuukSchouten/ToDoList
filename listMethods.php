@@ -10,6 +10,8 @@ if(isset($_GET['id'])) {
 //Create
 function createList(){
 
+    GLOBAL $conn;
+
     if(isset($_POST['submit'])){
 
         $description = $_POST['description'];
@@ -21,8 +23,8 @@ function createList(){
     
         // prevent multiple injections on refresh by going back to index
         header("Location: index.php");
-    
     }
+
 }
 
 //Read
@@ -30,15 +32,19 @@ function createList(){
 function readList(){
     GLOBAL $conn;
 
-    $task = $conn->query("SELECT * FROM tasks");
+    $list = $conn->query("SELECT * FROM tasks");
 
-    return $task;
+    return $list;
 
 }
 
 //Update
 
 function updateList(){
+
+    GLOBAL $conn;
+
+    GLOBAL $id;
 
     // Get all data where id matches url id
     $select = $conn->query("SELECT * FROM tasks WHERE id = $id");
@@ -65,11 +71,17 @@ function updateList(){
 
         }
 
+        return $row;
 }
 
 //Delete
 
 function deleteList(){
+
+    GLOBAL $conn;
+
+    GLOBAL $id;
+
     // DELETE query to delete row from database
     $query = "DELETE FROM tasks WHERE id=$id";
 
@@ -81,5 +93,5 @@ function deleteList(){
 
     // Back to index to prevent multiple injections
     header("location: index.php");
-    }
+}
 

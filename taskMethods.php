@@ -7,11 +7,15 @@ if(isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
-class taskMethods{
 
 //Create 
 
 function createTask(){
+    
+    GLOBAL $conn;
+
+    GLOBAL $id;
+
     if(isset($_POST['submit'])){
 
         $name = $_POST['name'];
@@ -25,15 +29,48 @@ function createTask(){
     }
 }
 
+
 //Read
 
 function readTask(){
 
+    GLOBAL $id;
+
+    GLOBAL $conn;
+    
+    //get status from url
+    if(isset($_GET['status'])) {
+        $status = $_GET['status'];
+    }else{
+        $status = 'todo';
+    }
+    
+    if(isset($_GET['duration'])) {
+        $duration = $_GET['duration'];
+    }else{
+        $duration = '23:59:59.9999999';
+    }
+    
+    // Get all rows from task table
+    $tasks = $conn->query("SELECT * from task_part where task_id = '$id' && status = '$status' && duration <= '$duration'");
+
+    return $tasks;
 }
+
 
 //Update
 
 function updateTask(){
+
+    GLOBAL $conn;
+
+    GLOBAL $id;
+
+    // Get all data where id matches url id
+    $select = $conn->query("SELECT * FROM task_part WHERE id = $id");
+    $row = $select->fetch();
+
+    $returnId = $row['task_id'];
 
     if(isset($_POST['submit'])) {
 
@@ -54,24 +91,29 @@ function updateTask(){
         header("Location: task.php?id=$returnId");
     }
 
+    return $row;
+
 }
+
 
 //Delete
 
 function deleteTask(){
 
+    GLOBAL $conn;
+
+    GLOBAL $id;
+
     // DELETE query to delete row from database
-$query = "DELETE FROM task_part WHERE id=$id";
+    $query = "DELETE FROM task_part WHERE id=$id";
 
-// Prepare statement to prevent sql injection
-$stmt = $conn->prepare($query);
+    // Prepare statement to prevent sql injection
+    $stmt = $conn->prepare($query);
 
-// Execute query
-$stmt->execute();
+    // Execute query
+    $stmt->execute();
 
-// Back to index to prevent multiple injections
-header('Location: ' . $_SERVER['HTTP_REFERER']);
-
-}
+    // Back to index to prevent multiple injections
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 
 }
